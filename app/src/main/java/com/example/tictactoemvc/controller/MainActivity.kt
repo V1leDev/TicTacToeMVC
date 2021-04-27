@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import com.example.tictactoemvc.model.AppDatabase
 import com.example.tictactoemvc.model.GameState
 import com.example.tictactoemvc.view.GameView
@@ -33,17 +34,37 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
     }
 
     override fun onReadyClicked(s: Int) {
-        var readyButton = findViewById<Button>(s)
+        val readyButton = findViewById<Button>(s)
+        var usernameOkay = false
 
-        readyButton.setBackgroundColor(Color.GREEN)
-        readyButton.isClickable = false
 
         // update GameState ready button states
-        if (readyButton == ready1) {
+        if (readyButton == ready1 && checkUsernameValidity(
+                editTextPlayer1.text.toString(),
+                "Player 1"
+            )
+        ) {
             gs.ready1 = true
-        } else if (readyButton == ready2) {
+            usernameOkay = true
+            editTextPlayer1.isEnabled = false
+            gs.username1 = editTextPlayer1.text.toString()
+        } else if (readyButton == ready2 && checkUsernameValidity(
+                editTextPlayer2.text.toString(),
+                "Player 2"
+            )
+        ) {
             gs.ready2 = true
+            usernameOkay = true
+            editTextPlayer2.isEnabled = false
+            gs.username2 = editTextPlayer2.text.toString()
         }
+        if (usernameOkay) {
+            readyButton.setBackgroundColor(Color.GREEN)
+            readyButton.isClickable = false
+        } else {
+            return
+        }
+
 
         if (gs.ready1 && gs.ready2) {
             startGame()
@@ -51,20 +72,45 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
 
     }
 
+    private fun checkUsernameValidity(username: String, player: String): Boolean {
+        if (username == "") {
+            Toast.makeText(this, "$player has empty username", Toast.LENGTH_LONG).show()
+            Log.d("debug", "$player has empty username")
+            return false
+        }
+        if (player == "Player 1" && username == editTextPlayer2.text.toString()) {
+            Toast.makeText(this, "$player has same username as Player 2", Toast.LENGTH_LONG)
+                .show()
+            Log.d("debug", "$player has same username as Player 2")
+            return false
+        }
+        if (player == "Player 2" && username == editTextPlayer1.text.toString()) {
+            Toast.makeText(this, "$player has same username as Player 1", Toast.LENGTH_LONG)
+                .show()
+            Log.d("debug", "$player has same username as Player 1")
+            return false
+        }
+        return true
+
+    }
+
     private fun startGame() {
         Log.d("debug", "Game started")
+        Log.d("debug", "Player 1: " + gs.username1)
+        Log.d("debug", "Player 2: " + gs.username2)
 
-        // TODO: Check if username is empty
-
-        // get usernames
-        gs.username1 = editTextPlayer1.text.toString()
-        gs.username2 = editTextPlayer2.text.toString()
-
-        Log.d("debug", gs.username1)
-        Log.d("debug", gs.username2)
-
-        // make username input fields unmodifiable
-        editTextPlayer1.isEnabled = false
-        editTextPlayer2.isEnabled = false
+        // randomly select who starts the game
+        val random = (0..2).random()
+        if (random == 1) {
+            gs.turn = "player1"
+        } else if (random == 2) {
+            gs.turn = "player2"
+        }
+        Log.d("debug", gs.turn)
+        if (gs.turn == "player1"){
+            Toast.makeText(this,  "GAME STARTED! " + gs.username1 + " has the first turn", Toast.LENGTH_LONG).show()
+        }else if (gs.turn == "player2"){
+            Toast.makeText(this,  "GAME STARTED! " + gs.username2 + " has the first turn", Toast.LENGTH_LONG).show()
+        }
     }
 }

@@ -7,5 +7,6 @@ class GameState {
     var ready2 = false
     var username1 = ""
     var username2 = ""
+    var turn = ""
 
 }
