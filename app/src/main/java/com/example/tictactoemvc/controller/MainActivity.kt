@@ -30,13 +30,16 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
     }
 
     override fun onFieldSelected(s: Int) {
-        val playingField = findViewById<Button>(s)
-        if (gs.turn == "player1") {
-            playingField.text = "X"
-            gs.turn = "player2"
-        } else if (gs.turn == "player2") {
-            playingField.text = "O"
-            gs.turn = "player1"
+        if (gs.gameStarted) {
+            val playingField = findViewById<Button>(s)
+            drawSymbols(playingField)
+        } else {
+            Toast.makeText(
+                this,
+                "Game has not started yet. Please input usernames and click ready",
+                Toast.LENGTH_LONG
+            )
+                .show()
         }
     }
 
@@ -127,6 +130,18 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
                 "GAME STARTED! " + gs.username2 + " has the first turn",
                 Toast.LENGTH_LONG
             ).show()
+        }
+
+        gs.gameStarted = true
+    }
+
+    private fun drawSymbols(playingField: Button) {
+        if (gs.turn == "player1") {
+            playingField.text = "X"
+            gs.turn = "player2"
+        } else if (gs.turn == "player2") {
+            playingField.text = "O"
+            gs.turn = "player1"
         }
     }
 }
