@@ -29,8 +29,15 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
         usedGameView.setReadyListener(this)
     }
 
-    override fun onFieldSelected() {
-        Log.d("debug", "field selected")
+    override fun onFieldSelected(s: Int) {
+        val playingField = findViewById<Button>(s)
+        if (gs.turn == "player1") {
+            playingField.text = "X"
+            gs.turn = "player2"
+        } else if (gs.turn == "player2") {
+            playingField.text = "O"
+            gs.turn = "player1"
+        }
     }
 
     override fun onReadyClicked(s: Int) {
@@ -100,17 +107,26 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
         Log.d("debug", "Player 2: " + gs.username2)
 
         // randomly select who starts the game
-        val random = (0..2).random()
+        val random = (1..2).random()
+        Log.d("debug", random.toString())
+
         if (random == 1) {
             gs.turn = "player1"
         } else if (random == 2) {
             gs.turn = "player2"
         }
-        Log.d("debug", gs.turn)
-        if (gs.turn == "player1"){
-            Toast.makeText(this,  "GAME STARTED! " + gs.username1 + " has the first turn", Toast.LENGTH_LONG).show()
-        }else if (gs.turn == "player2"){
-            Toast.makeText(this,  "GAME STARTED! " + gs.username2 + " has the first turn", Toast.LENGTH_LONG).show()
+        if (gs.turn == "player1") {
+            Toast.makeText(
+                this,
+                "GAME STARTED! " + gs.username1 + " has the first turn",
+                Toast.LENGTH_LONG
+            ).show()
+        } else if (gs.turn == "player2") {
+            Toast.makeText(
+                this,
+                "GAME STARTED! " + gs.username2 + " has the first turn",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 }

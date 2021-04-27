@@ -22,39 +22,39 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
 
         rootView.findViewById<Button>(R.id.buttonField1).setOnClickListener {
             Log.d("debug", "field1 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField1)
         }
         rootView.findViewById<Button>(R.id.buttonField2).setOnClickListener {
             Log.d("debug", "field2 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField2)
         }
         rootView.findViewById<Button>(R.id.buttonField3).setOnClickListener {
             Log.d("debug", "field3 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField3)
         }
         rootView.findViewById<Button>(R.id.buttonField4).setOnClickListener {
             Log.d("debug", "field4 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField4)
         }
         rootView.findViewById<Button>(R.id.buttonField5).setOnClickListener {
             Log.d("debug", "field5 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField5)
         }
         rootView.findViewById<Button>(R.id.buttonField6).setOnClickListener {
             Log.d("debug", "field6 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField6)
         }
         rootView.findViewById<Button>(R.id.buttonField7).setOnClickListener {
             Log.d("debug", "field7 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField7)
         }
         rootView.findViewById<Button>(R.id.buttonField8).setOnClickListener {
             Log.d("debug", "field8 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField8)
         }
         rootView.findViewById<Button>(R.id.buttonField9).setOnClickListener {
             Log.d("debug", "field9 selected")
-            fieldSelectedListener?.onFieldSelected()
+            fieldSelectedListener?.onFieldSelected(R.id.buttonField9)
         }
     }
 

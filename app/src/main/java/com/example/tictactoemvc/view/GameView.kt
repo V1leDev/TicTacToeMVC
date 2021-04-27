@@ -6,7 +6,7 @@ interface GameView {
     fun getRootView(): View
 
     interface FieldSelectedListener {
-        fun onFieldSelected()
+        fun onFieldSelected(s: Int)
     }
 
     interface ReadyClickedListener {
