@@ -10,7 +10,7 @@ interface GameView {
     }
 
     interface ReadyClickedListener {
-        fun onReadyClicked()
+        fun onReadyClicked(s: Int)
     }
 
     fun setFieldListener(listener: FieldSelectedListener)

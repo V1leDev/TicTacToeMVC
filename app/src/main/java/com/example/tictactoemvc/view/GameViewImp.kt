@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import com.example.tictactoemvc.R
-import kotlinx.android.synthetic.main.activity_main.*
 
 class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListener {
     private var rootView = layoutInflater.inflate(R.layout.activity_main, null)
@@ -14,13 +13,11 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
 
     init {
         rootView.findViewById<Button>(R.id.ready1).setOnClickListener {
-            Log.d("debug", "ready1")
-            readyClickedListener?.onReadyClicked()
+            readyClickedListener?.onReadyClicked(R.id.ready1)
         }
 
         rootView.findViewById<Button>(R.id.ready2).setOnClickListener {
-            Log.d("debug", "ready2")
-            readyClickedListener?.onReadyClicked()
+            readyClickedListener?.onReadyClicked(R.id.ready2)
         }
 
         rootView.findViewById<Button>(R.id.buttonField1).setOnClickListener {
@@ -60,7 +57,6 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
             fieldSelectedListener?.onFieldSelected()
         }
     }
-
 
 
     override fun getRootView(): View = rootView
