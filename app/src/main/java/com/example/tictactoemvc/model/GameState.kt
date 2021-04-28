@@ -9,5 +9,6 @@ class GameState {
     var username2 = ""
     var turn = ""
     var gameStarted = false
+    var tie = false
 
 }

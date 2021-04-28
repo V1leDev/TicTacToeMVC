@@ -37,23 +37,81 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
             drawSymbols(playingField)
             val winner_symbol = checkWin()
             if (winner_symbol != "") {
-                Toast.makeText(
-                    this,
-                    winner_symbol,
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            } else {
-                // check if board is full
+                storeWinner(winner_symbol)
+                // reset game after win
+                reset()
             }
+            checkTie()
         } else {
             Toast.makeText(
                 this,
                 "Game has not started yet. Please input usernames and click ready",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             )
                 .show()
         }
+    }
+
+    private fun storeWinner(winner_symbol : String){
+        Toast.makeText(
+            this,
+            winner_symbol,
+            Toast.LENGTH_SHORT
+        )
+            .show()
+    }
+
+    private fun checkTie() {
+        for (field in usedGameView.fieldList) {
+            if (findViewById<Button>(field).text == "") {
+                gs.tie = false
+                break
+            } else {
+                gs.tie = true
+            }
+        }
+        if (gs.tie) {
+            // reset game after tie
+            reset()
+        }
+    }
+
+    private fun reset() {
+        if (gs.tie) {
+            Toast.makeText(
+                this,
+                "Tie!",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
+        resetGameState()
+        resetGameView()
+    }
+
+    private fun resetGameView() {
+        editTextPlayer1.isEnabled = true
+        editTextPlayer1.setText("")
+        editTextPlayer2.isEnabled = true
+        editTextPlayer2.setText("")
+        ready1.setBackgroundColor(Color.RED)
+        ready1.isClickable = true
+        ready2.setBackgroundColor(Color.RED)
+        ready2.isClickable = true
+        for (field in usedGameView.fieldList) {
+            findViewById<Button>(field).isEnabled = true
+            findViewById<Button>(field).text = ""
+        }
+    }
+
+    private fun resetGameState() {
+        gs.ready1 = false
+        gs.ready2 = false
+        gs.username1 = ""
+        gs.username2 = ""
+        gs.turn = ""
+        gs.gameStarted = false
+        gs.tie = false
     }
 
     override fun onReadyClicked(s: Int) {
@@ -97,18 +155,18 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
 
     private fun checkUsernameValidity(username: String, player: String): Boolean {
         if (username == "") {
-            Toast.makeText(this, "$player has empty username", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "$player has empty username", Toast.LENGTH_SHORT).show()
             Log.d("debug", "$player has empty username")
             return false
         }
         if (player == "Player 1" && username == editTextPlayer2.text.toString()) {
-            Toast.makeText(this, "$player has same username as Player 2", Toast.LENGTH_LONG)
+            Toast.makeText(this, "$player has same username as Player 2", Toast.LENGTH_SHORT)
                 .show()
             Log.d("debug", "$player has same username as Player 2")
             return false
         }
         if (player == "Player 2" && username == editTextPlayer1.text.toString()) {
-            Toast.makeText(this, "$player has same username as Player 1", Toast.LENGTH_LONG)
+            Toast.makeText(this, "$player has same username as Player 1", Toast.LENGTH_SHORT)
                 .show()
             Log.d("debug", "$player has same username as Player 1")
             return false
@@ -135,13 +193,13 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
             Toast.makeText(
                 this,
                 "GAME STARTED! " + gs.username1 + " has the first turn",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show()
         } else if (gs.turn == "player2") {
             Toast.makeText(
                 this,
                 "GAME STARTED! " + gs.username2 + " has the first turn",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show()
         }
 
