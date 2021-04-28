@@ -10,6 +10,7 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
     private var rootView = layoutInflater.inflate(R.layout.activity_main, null)
     var fieldSelectedListener: GameView.FieldSelectedListener? = null
     var readyClickedListener: GameView.ReadyClickedListener? = null
+    var scoreClickedListener: GameView.ScoresClickedListener? = null
     override var fieldList: ArrayList<Int> = arrayListOf<Int>(
         R.id.buttonField1,
         R.id.buttonField2,
@@ -22,7 +23,12 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
         R.id.buttonField9
     )
 
+
     init {
+        rootView.findViewById<Button>(R.id.buttonScore).setOnClickListener {
+            scoreClickedListener?.onScoresClicked()
+        }
+
         rootView.findViewById<Button>(R.id.ready1).setOnClickListener {
             readyClickedListener?.onReadyClicked(R.id.ready1)
         }
@@ -76,6 +82,10 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
         fieldSelectedListener = listener
     }
 
+    override fun setScoresListener(listener: GameView.ScoresClickedListener) {
+        scoreClickedListener = listener
+    }
+
     override fun setReadyListener(listener: GameView.ReadyClickedListener) {
         readyClickedListener = listener
     }
@@ -83,5 +93,6 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
     override fun onClick(v: View?) {
         TODO("Not yet implemented")
     }
+
 
 }

@@ -14,6 +14,11 @@ interface GameView {
         fun onReadyClicked(s: Int)
     }
 
+    interface ScoresClickedListener{
+        fun onScoresClicked()
+    }
+
+    fun setScoresListener(listener: ScoresClickedListener)
     fun setFieldListener(listener: FieldSelectedListener)
     fun setReadyListener(listener: ReadyClickedListener)
 }

@@ -1,5 +1,6 @@
 package com.example.tictactoemvc.controller
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,14 +8,16 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.room.Room
+import com.example.tictactoemvc.ScoreActivity
 import com.example.tictactoemvc.model.AppDatabase
 import com.example.tictactoemvc.model.GameState
 import com.example.tictactoemvc.view.GameView
 import com.example.tictactoemvc.view.GameViewImp
+import com.example.tictactoemvc.view.ScoreView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
-    GameView.ReadyClickedListener {
+    GameView.ReadyClickedListener, GameView.ScoresClickedListener {
 
     private lateinit var usedGameView: GameView
 
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
         setContentView(usedGameView.getRootView())
         usedGameView.setFieldListener(this)
         usedGameView.setReadyListener(this)
+        usedGameView.setScoresListener(this)
 
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "note").fallbackToDestructiveMigration().allowMainThreadQueries().build()
     }
@@ -273,5 +277,10 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
             return buttonField7.text.toString()
         }
         return ""
+    }
+
+    override fun onScoresClicked() {
+        val intent: Intent = Intent(this, ScoreActivity::class.java)
+        startActivity(intent)
     }
 }
