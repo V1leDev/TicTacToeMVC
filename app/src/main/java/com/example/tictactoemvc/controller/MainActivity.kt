@@ -52,13 +52,23 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
         }
     }
 
-    private fun storeWinner(winner_symbol : String){
-        Toast.makeText(
-            this,
-            winner_symbol,
-            Toast.LENGTH_SHORT
-        )
-            .show()
+    private fun storeWinner(winner_symbol: String) {
+        // TODO: Store winner in DB
+        if (winner_symbol == "X") {
+            Toast.makeText(
+                this,
+                gs.username1 + "won the game!",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        } else if (winner_symbol == "O") {
+            Toast.makeText(
+                this,
+                gs.username2 + " won the game!",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
     }
 
     private fun checkTie() {
