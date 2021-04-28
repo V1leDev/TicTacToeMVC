@@ -10,6 +10,17 @@ class GameViewImp(layoutInflater: LayoutInflater) : GameView, View.OnClickListen
     private var rootView = layoutInflater.inflate(R.layout.activity_main, null)
     var fieldSelectedListener: GameView.FieldSelectedListener? = null
     var readyClickedListener: GameView.ReadyClickedListener? = null
+    override var fieldList: ArrayList<Int> = arrayListOf<Int>(
+        R.id.buttonField1,
+        R.id.buttonField2,
+        R.id.buttonField3,
+        R.id.buttonField4,
+        R.id.buttonField5,
+        R.id.buttonField6,
+        R.id.buttonField7,
+        R.id.buttonField8,
+        R.id.buttonField9
+    )
 
     init {
         rootView.findViewById<Button>(R.id.ready1).setOnClickListener {

@@ -4,6 +4,7 @@ import android.view.View
 
 interface GameView {
     fun getRootView(): View
+    var fieldList: ArrayList<Int>
 
     interface FieldSelectedListener {
         fun onFieldSelected(s: Int)

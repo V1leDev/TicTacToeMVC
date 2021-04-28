@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import com.example.tictactoemvc.R
 import com.example.tictactoemvc.model.AppDatabase
 import com.example.tictactoemvc.model.GameState
 import com.example.tictactoemvc.view.GameView
@@ -35,13 +36,15 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
             playingField.isEnabled = false
             drawSymbols(playingField)
             val winner_symbol = checkWin()
-            if (winner_symbol!=""){
+            if (winner_symbol != "") {
                 Toast.makeText(
                     this,
                     winner_symbol,
                     Toast.LENGTH_LONG
                 )
                     .show()
+            } else {
+                // check if board is full
             }
         } else {
             Toast.makeText(
