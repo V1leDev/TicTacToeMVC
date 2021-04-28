@@ -252,28 +252,28 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
     }
 
     private fun checkWin(): String {
-        if (buttonField1.text.toString() == buttonField4.text.toString() && buttonField4.text.toString() == buttonField7.text.toString()) {
+        if (buttonField1.text.toString() != "" && buttonField1.text.toString() == buttonField4.text.toString() && buttonField4.text.toString() == buttonField7.text.toString()) {
             return buttonField1.text.toString()
         }
-        if (buttonField2.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField8.text.toString()) {
+        if (buttonField2.text.toString() != "" && buttonField2.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField8.text.toString()) {
             return buttonField2.text.toString()
         }
-        if (buttonField3.text.toString() == buttonField6.text.toString() && buttonField6.text.toString() == buttonField9.text.toString()) {
+        if (buttonField3.text.toString() != "" && buttonField3.text.toString() == buttonField6.text.toString() && buttonField6.text.toString() == buttonField9.text.toString()) {
             return buttonField3.text.toString()
         }
-        if (buttonField1.text.toString() == buttonField2.text.toString() && buttonField2.text.toString() == buttonField3.text.toString()) {
+        if (buttonField1.text.toString() != "" && buttonField1.text.toString() == buttonField2.text.toString() && buttonField2.text.toString() == buttonField3.text.toString()) {
             return buttonField1.text.toString()
         }
-        if (buttonField4.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField6.text.toString()) {
+        if (buttonField4.text.toString() != "" && buttonField4.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField6.text.toString()) {
             return buttonField4.text.toString()
         }
-        if (buttonField7.text.toString() == buttonField8.text.toString() && buttonField8.text.toString() == buttonField9.text.toString()) {
+        if (buttonField7.text.toString() != "" && buttonField7.text.toString() == buttonField8.text.toString() && buttonField8.text.toString() == buttonField9.text.toString()) {
             return buttonField7.text.toString()
         }
-        if (buttonField1.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField9.text.toString()) {
+        if (buttonField1.text.toString() != "" && buttonField1.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField9.text.toString()) {
             return buttonField1.text.toString()
         }
-        if (buttonField7.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField3.text.toString()) {
+        if (buttonField7.text.toString() != "" && buttonField7.text.toString() == buttonField5.text.toString() && buttonField5.text.toString() == buttonField3.text.toString()) {
             return buttonField7.text.toString()
         }
         return ""
