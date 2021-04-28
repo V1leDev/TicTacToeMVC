@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
-import com.example.tictactoemvc.R
+import androidx.room.Room
 import com.example.tictactoemvc.model.AppDatabase
 import com.example.tictactoemvc.model.GameState
 import com.example.tictactoemvc.view.GameView
@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
         setContentView(usedGameView.getRootView())
         usedGameView.setFieldListener(this)
         usedGameView.setReadyListener(this)
+
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "note").fallbackToDestructiveMigration().allowMainThreadQueries().build()
     }
 
     override fun onFieldSelected(s: Int) {
@@ -54,13 +56,15 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
 
     private fun storeWinner(winner_symbol: String) {
         // TODO: Store winner in DB
+        var winning_user = ""
         if (winner_symbol == "X") {
             Toast.makeText(
                 this,
-                gs.username1 + "won the game!",
+                gs.username1 + " won the game!",
                 Toast.LENGTH_SHORT
             )
                 .show()
+            winning_user = gs.username1
         } else if (winner_symbol == "O") {
             Toast.makeText(
                 this,
@@ -68,8 +72,25 @@ class MainActivity : AppCompatActivity(), GameView.FieldSelectedListener,
                 Toast.LENGTH_SHORT
             )
                 .show()
+            winning_user = gs.username2
         }
-    }
+        var scores  = db.scoreDAO().getAllScores()
+        var user_exists = false
+        var points : Int = 0
+        for (score in scores){
+            if (score.username.equals(winning_user)){
+                user_exists = true
+                points = score.points
+                break
+            }
+        }
+        points += 1
+        if (user_exists){
+            db.scoreDAO().updateScore(winning_user, points)
+        } else {
+            db.scoreDAO().insertScore(winning_user, points)
+        }
+        }
 
     private fun checkTie() {
         for (field in usedGameView.fieldList) {

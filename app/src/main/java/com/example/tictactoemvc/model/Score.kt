@@ -9,5 +9,5 @@ data class Score(
     @PrimaryKey(autoGenerate = true)
     val ID: Int,
     val username: String?,
-    val points: BigInteger?
+    val points: Int
 )
